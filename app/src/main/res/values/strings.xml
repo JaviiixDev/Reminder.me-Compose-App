@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Recuerdame</string>
+    <string name="cat_1">Personal</string>
+    <string name="cat_2">Trabajo</string>
+    <string name="cat_3">Escuela</string>
+    <string name="cat_4">Viajes</string>
+    <string name="categorias">Carpetas</string>
+    <string name="notas_recientes">Notas recientes</string>
+
+    <string name="select_notasencilla">Nota sencilla</string>
+    <string name="select_notavoz">Nota de voz</string>
+    <string name="select_escanear">Escanear</string>
+
+    <string name="agregar_nota">Agregar nueva nota</string>
+
+    <string name="no_disponible">Funcion no disponible</string>
+    <string name="eslogan">!Tu vida, tus ideas, tus notas¡</string>
+    <string name="nota_no_encontrada">Nota no encontrada</string>
+    <string name="regresar">Regresar</string>
+    <string name="error_login">Usuario o contraseña incorrectos</string>
+</resources>
