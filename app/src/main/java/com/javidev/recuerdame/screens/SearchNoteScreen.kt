@@ -41,62 +41,60 @@ fun SearchNoteScreen(navController: NavHostController) {
         topBar = { TopAppBar(title = { Text("Buscar nota") }) }
     ) { innerPadding ->
         var searchQuery by remember { mutableStateOf("") }
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Black)
-                .padding(innerPadding)
+                .padding(innerPadding),
+            contentPadding = PaddingValues(
+                start = 8.dp,
+                end = 8.dp,
+                top = 8.dp,
+                bottom = 80.dp
+            )
         ) {
             //muestra un campo de busqueda
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                label = { Text("Buscar nota") },
-                leadingIcon = {
-                    Icon(imageVector = Icons.Default.Search, contentDescription = "Buscar")
-                },
-                singleLine = true,
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Color.White,
-                    unfocusedBorderColor = Color.White,
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color.White,
-                    cursorColor = Color.White,
-                    focusedLabelColor = Color.White,
-                    unfocusedLabelColor = Color.White,
-                    focusedLeadingIconColor = Color.White,
-                    unfocusedLeadingIconColor = Color.White
-                ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
+            item {
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    label = { Text("Buscar nota") },
+                    leadingIcon = {
+                        Icon(imageVector = Icons.Default.Search, contentDescription = "Buscar")
+                    },
+                    singleLine = true,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color.White,
+                        unfocusedBorderColor = Color.White,
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color.White,
+                        cursorColor = Color.White,
+                        focusedLabelColor = Color.White,
+                        unfocusedLabelColor = Color.White,
+                        focusedLeadingIconColor = Color.White,
+                        unfocusedLeadingIconColor = Color.White
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
             //filtra las notas por contenido y por titulo
             val filteredNotes = notes.filter { note ->
                 note.noteTitle.contains(searchQuery, ignoreCase = true) || note.noteContent.contains(searchQuery, ignoreCase = true)
             }
             //imprime las notas resultantes en pantalla
             if (searchQuery.isNotBlank()) {
-                LazyColumn(
-                    contentPadding = PaddingValues(
-                        start = 8.dp,
-                        end = 8.dp,
-                        top = 8.dp,
-                        bottom = 80.dp
+                items(filteredNotes) { note ->
+                    NoteItem(
+                        note = note,
+                        modifier = Modifier
+                            .padding(horizontal = 8.dp, vertical = 8.dp),
+                        onClick = {
+                            navController.navigate(Screen.NoteDetail.route + "/${note.id}")
+                        }
                     )
-                ) {
-                    items(filteredNotes) { note ->
-                        NoteItem(
-                            note = note,
-                            modifier = Modifier
-                                .padding(horizontal = 8.dp, vertical = 8.dp),
-                            onClick = {
-                                navController.navigate(Screen.NoteDetail.route + "/${note.id}")
-                            }
-                        )
-                    }
                 }
             }
         }

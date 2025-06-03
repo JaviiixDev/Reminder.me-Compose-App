@@ -3,6 +3,7 @@ package com.javidev.recuerdame.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,7 +12,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -52,12 +55,13 @@ fun LoginScreen(navController: NavHostController) {
         var inputUsername by remember { mutableStateOf("") }
         var inputPassword by remember { mutableStateOf("") }
         var loginError by remember { mutableStateOf(false) }
-
+        val scrollState = rememberScrollState()//recuerda el scroll de la pantalla
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(Color.Black)
-                .padding(16.dp),
+                .padding(16.dp)
+                .verticalScroll(scrollState),//aplica el scroll, solo si el contenido no cabe en la pantalla
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.weight(1f))

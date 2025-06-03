@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
@@ -46,12 +49,14 @@ fun CreateNoteScreen(navController: NavHostController) {
     Scaffold(
         topBar = { TopAppBar(title = { Text("Crear nota") }) }
     ) { innerPadding ->
+        val scrollState = rememberScrollState()//recuerda el scroll de la pantalla
         Column(
             modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
             .padding(innerPadding)
-            .padding(bottom = 90.dp, top = 8.dp),
+            .padding(bottom = 90.dp, top = 8.dp)
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         )
         {
@@ -134,7 +139,7 @@ fun CreateNoteScreen(navController: NavHostController) {
                 label = { Text("Contenido") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
+                    .heightIn(min = 200.dp)//altura inicial
                     .padding(horizontal = 16.dp, vertical = 8.dp), // Ocupa el espacio restante
                 maxLines = Int.MAX_VALUE, // Permite múltiples líneas
                 singleLine = false,

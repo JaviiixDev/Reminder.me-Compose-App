@@ -1,7 +1,6 @@
 package com.javidev.recuerdame.screens
 
 import android.os.Build
-import android.service.autofill.OnClickAction
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
@@ -24,14 +23,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -40,18 +34,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.SemanticsActions.OnClick
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -102,68 +92,75 @@ fun HomeScreen(navController: NavHostController) {
             )
         }
     ) { innerPadding ->
-        Column(
+        // lazy column para mostrar todos los elementos y que se pueda deslizar la pantalla cuando esta en horizontal
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.Black)
                 .padding(innerPadding)
-        ) {
-            //titulo de las categorias
-            Text(
-                text = stringResource(R.string.categorias),
-                style = TextStyle(fontSize = 16.sp),
-                fontWeight = FontWeight.Normal,
-                color = Color.White,
-                modifier = Modifier.padding(start = 8.dp, top = 32.dp, bottom = 16.dp)
+                .background(Color.Black),
+            contentPadding = PaddingValues(
+                start = 8.dp,
+                end = 8.dp,
+                bottom = 80.dp
             )
-            //muestra las categorias en una row
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
-            ) {
-                items(categories) { (name, icon) ->
-                    val isSelected = selectedCategory.value == name
-                    CategoryCard(
-                        categoryName = name,
-                        imageRes = icon,
-                        isSelected = isSelected,
-                        onClick = {
-                            selectedCategory.value = if (isSelected) null else name
-                        }
-                    )
+        ) {
+            // titulo de las categorias
+            item {
+                Text(
+                    text = stringResource(R.string.categorias),
+                    style = TextStyle(fontSize = 16.sp),
+                    fontWeight = FontWeight.Normal,
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 8.dp, top = 32.dp, bottom = 16.dp)
+                )
+            }
+
+            // muestra las categorias en una row
+            item {
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally)
+                ) {
+                    items(categories) { (name, icon) ->
+                        val isSelected = selectedCategory.value == name
+                        CategoryCard(
+                            categoryName = name,
+                            imageRes = icon,
+                            isSelected = isSelected,
+                            onClick = {
+                                selectedCategory.value = if (isSelected) null else name
+                            }
+                        )
+                    }
                 }
             }
-            //titulo notas recientes
-            Text(
-                text = stringResource(R.string.notas_recientes),
-                style = TextStyle(fontSize = 16.sp),
-                fontWeight = FontWeight.Light,
-                color = Color.White,
-                modifier = Modifier.padding(top = 16.dp, bottom = 4.dp, start = 8.dp)
-            )
-            //Ordena las notas por fecha y hora, pone primero las mas actuales
-            val sortedNotes = filteredNotes.sortedByDescending { it.noteDate }
-            //muestra las categorias filtradas en la lista
-            LazyColumn(
-                contentPadding = PaddingValues(
-                    start = 8.dp,
-                    end = 8.dp,
-                    top = 8.dp,
-                    bottom = 80.dp
+
+            // titulo notas recientes
+            item {
+                Text(
+                    text = stringResource(R.string.notas_recientes),
+                    style = TextStyle(fontSize = 16.sp),
+                    fontWeight = FontWeight.Light,
+                    color = Color.White,
+                    modifier = Modifier.padding(top = 16.dp, bottom = 4.dp, start = 8.dp)
                 )
-            ) {
-                items(sortedNotes) { note ->
-                    NoteItem(
-                        note = note,
-                        modifier = Modifier
-                            .padding(horizontal = 8.dp, vertical = 8.dp),
-                        onClick = {
-                            navController.navigate(Screen.NoteDetail.route+ "/${note.id}")//si le da click a alguna categoria la abre en la pantalla de detalles de nota
-                        }
-                    )
-                }
+            }
+
+            // Ordena las notas por fecha y hora, pone primero las mas actuales
+            val sortedNotes = filteredNotes.sortedByDescending { it.noteDate }
+
+            // muestra las categorias filtradas en la lista
+            items(sortedNotes) { note ->
+                NoteItem(
+                    note = note,
+                    modifier = Modifier
+                        .padding(horizontal = 0.dp, vertical = 8.dp), // Adjust horizontal padding as LazyColumn already has 8.dp
+                    onClick = {
+                        navController.navigate(Screen.NoteDetail.route + "/${note.id}")
+                    }
+                )
             }
         }
     }

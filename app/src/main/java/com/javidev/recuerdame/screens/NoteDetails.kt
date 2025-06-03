@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -42,12 +44,14 @@ fun NoteDetailScreen(navController: NavHostController, note: Note) {
     Scaffold(
         topBar = { TopAppBar(title = { Text("Ver nota") }) },
         content = { innerPadding ->
+            val scrollState = rememberScrollState()//recuerda el scroll de la pantalla
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
                     .background(Color.Black)
-                    .padding(bottom = 90.dp, top = 16.dp, start = 16.dp, end = 16.dp),
+                    .padding(bottom = 90.dp, top = 16.dp, start = 16.dp, end = 16.dp)
+                    .verticalScroll(scrollState),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 //indica si se debe mostrar el dialog de eliminacion o no
