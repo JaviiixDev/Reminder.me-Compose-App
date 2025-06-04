@@ -30,8 +30,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.javidev.recuerdame.R
 import com.javidev.recuerdame.data.Note
 import com.javidev.recuerdame.data.notes
 import java.time.format.DateTimeFormatter
@@ -59,7 +61,7 @@ fun NoteDetailScreen(navController: NavHostController, note: Note) {
                 //muestra la fecha y hora
                 Text(
                     text = note.noteDate.format(
-                        DateTimeFormatter.ofPattern("MMMM d, yyyy - h:mm a", Locale("es", "ES"))
+                        DateTimeFormatter.ofPattern("MMMM d, yyyy - h:mm a", Locale.getDefault())
                     ),
                     color = Color.White,
                     style = MaterialTheme.typography.labelMedium
@@ -70,7 +72,7 @@ fun NoteDetailScreen(navController: NavHostController, note: Note) {
                     value = note.noteTitle,
                     onValueChange = {},
                     enabled = false,
-                    label = { Text("Título de la nota") },
+                    label = { Text(stringResource(R.string.titulo_nota)) },
                     modifier = Modifier.fillMaxWidth(),
                     colors = TextFieldDefaults.textFieldColors(
                         disabledTextColor = Color.White,
@@ -89,7 +91,7 @@ fun NoteDetailScreen(navController: NavHostController, note: Note) {
                     value = note.noteContent,
                     onValueChange = {},
                     enabled = false,
-                    label = { Text("Contenido") },
+                    label = { Text(stringResource(R.string.contenido_nota)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(200.dp),
@@ -102,12 +104,19 @@ fun NoteDetailScreen(navController: NavHostController, note: Note) {
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
+                val categoryName = when (note.noteCategory) {
+                    "cat_1" -> stringResource(R.string.cat_1)
+                    "cat_2" -> stringResource(R.string.cat_2)
+                    "cat_3" -> stringResource(R.string.cat_3)
+                    "cat_4" -> stringResource(R.string.cat_4)
+                    else -> ""
+                }
                 //muestra la categoria a la que pertenece la nota
                 TextField(
-                    value = note.noteCategory,
+                    value = categoryName,
                     onValueChange = {},
                     enabled = false,
-                    label = { Text("Categoría") },
+                    label = { Text(stringResource(R.string.categoria_nota)) },
                     modifier = Modifier.fillMaxWidth(),
                     colors = TextFieldDefaults.textFieldColors(
                         disabledTextColor = Color.White,
@@ -124,15 +133,15 @@ fun NoteDetailScreen(navController: NavHostController, note: Note) {
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text("Eliminar nota", color = Color.White)
+                    Text(stringResource(R.string.eliminar_nota), color = Color.White)
                 }
 
                 //dialog de eliminacion
                 if (showDialog) {
                     AlertDialog(
                         onDismissRequest = { showDialog = false },
-                        title = { Text("¿Eliminar nota?") },
-                        text = { Text("Esta acción no se puede deshacer.") },
+                        title = { Text(stringResource(R.string.eliminar_nota_pregunta)) },
+                        text = { Text(stringResource(R.string.eliminar_advertencia) ) },
                         confirmButton = {
                             TextButton(
                                 onClick = {
@@ -141,14 +150,14 @@ fun NoteDetailScreen(navController: NavHostController, note: Note) {
                                     navController.popBackStack() // Regresar a pantalla anterior
                                 }
                             ) {
-                                Text("Eliminar", color = Color.Red)
+                                Text(stringResource(R.string.eliminar), color = Color.Red)
                             }
                         },
                         dismissButton = {
                             TextButton(
                                 onClick = { showDialog = false }
                             ) {
-                                Text("Cancelar")
+                                Text(stringResource(R.string.eliminar_cancelar))
                             }
                         }
                     )

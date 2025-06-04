@@ -34,8 +34,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.javidev.recuerdame.R
 import com.javidev.recuerdame.data.Note
 import com.javidev.recuerdame.data.notes
 import java.time.LocalDateTime
@@ -61,12 +63,12 @@ fun CreateNoteScreen(navController: NavHostController) {
         )
         {
             val fecha = LocalDateTime.now()//obtiene la fecha actual
-            val formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy - h:mm a", Locale("es", "ES"))//formatea la fecha a un formato lwgible
+            val formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy - h:mm a", Locale.getDefault()) //formatea la fecha a un formato legible
             val formattedDate = fecha.format(formatter)
             //variables para guardar los datos ingresados por el usuario
             var title by remember { mutableStateOf("") }
             var content by remember { mutableStateOf("") }
-            var selectedCategory by remember { mutableStateOf("Escuela") }
+            var selectedCategory by remember { mutableStateOf("cat_1") }
 
 
             Row (
@@ -104,7 +106,7 @@ fun CreateNoteScreen(navController: NavHostController) {
                 ) {
                     Icon(
                         imageVector = Icons.Default.Check,
-                        contentDescription = "Guardar",
+                        contentDescription = stringResource(R.string.guardar),
                         tint = Color.White
                     )
                 }
@@ -113,7 +115,7 @@ fun CreateNoteScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = title,
                 onValueChange = {title = it},
-                label = { Text("Titulo") },
+                label = { Text(stringResource(R.string.titulo_nota)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 8.dp),
@@ -136,7 +138,7 @@ fun CreateNoteScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = content,
                 onValueChange = {content = it},
-                label = { Text("Contenido") },
+                label = { Text(stringResource(R.string.contenido_nota)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .heightIn(min = 200.dp)//altura inicial
@@ -175,18 +177,25 @@ fun SelectCategoryDropdown(
     selectedOptionText: String,
     onOptionSelected: (String) -> Unit
 ) {
-    val options = listOf("Escuela", "Trabajo", "Personal", "Viajes")
+    val options = listOf(
+        "cat_1" to stringResource(R.string.cat_1),
+        "cat_2" to stringResource(R.string.cat_2),
+        "cat_3" to stringResource(R.string.cat_3),
+        "cat_4" to stringResource(R.string.cat_4)
+    )
+
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded }
     ) {
+        val selectedLabel = options.firstOrNull { it.first == selectedOptionText }?.second ?: ""
         OutlinedTextField(
-            value = selectedOptionText,
+            value = selectedLabel,
             onValueChange = {},
             readOnly = true,
-            label = { Text("Categoría") },
+            label = { Text(stringResource(R.string.categoria_nota)) },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
@@ -211,11 +220,11 @@ fun SelectCategoryDropdown(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            options.forEach { selectionOption ->
+            options.forEach { (key, label) ->
                 DropdownMenuItem(
-                    text = { Text(selectionOption) },
+                    text = { Text(label) },
                     onClick = {
-                        onOptionSelected(selectionOption)
+                        onOptionSelected(key)
                         expanded = false
                     }
                 )
@@ -223,3 +232,4 @@ fun SelectCategoryDropdown(
         }
     }
 }
+

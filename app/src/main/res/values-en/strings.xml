@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recuerda.me</string>
+    <string name="cat_1">Personal</string>
+    <string name="cat_2">Work</string>
+    <string name="cat_3">School</string>
+    <string name="cat_4">Travel</string>
+    <string name="categorias">Files</string>
+    <string name="notas_recientes">Recent Notes</string>
+
+    <string name="select_notasencilla">Text Note</string>
+    <string name="select_notavoz">Voice Note</string>
+    <string name="select_escanear">Scanner</string>
+
+    <string name="agregar_nota">Add new note</string>
+
+    <string name="no_disponible">function not available</string>
+    <string name="eslogan">!Your life, your dreams, your notes¡</string>
+    <string name="nota_no_encontrada">Note not found</string>
+    <string name="regresar">Back</string>
+    <string name="error_login">Incorrect user or password</string>
+
+    <string name="iniciar_sesion">Log in</string>
+    <string name="usuario">User</string>
+    <string name="contraseña">Password</string>
+
+    <string name="titulo_nota">Note title</string>
+    <string name="contenido_nota">Content</string>
+    <string name="categoria_nota">Category</string>
+
+    <string name="eliminar_nota">Delete note</string>
+    <string name="eliminar_nota_pregunta">¿You really want to delete the note?</string>
+    <string name="eliminar_advertencia">This action cannot be undone</string>
+    <string name="eliminar">Delete</string>
+    <string name="eliminar_cancelar">Cancel</string>
+
+    <string name="buscar">Search</string>
+    <string name="buscar_nota">Search note</string>
+
+    <string name="crear_nota">Create note</string>
+    <string name="guardar">Save</string>
+
+    <string name="ver_nota">Watch note</string>
+    <string name="hola_usuario">¡Hello, User!</string>
+    <string name="mi_nueva_nota">My new note</string>
+    <string name="notas">Notes</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_add">Add</string>
+    <string name="nav_search">Search</string>
+</resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recuerdame</string>
+    <string name="app_name">Recuerda.me</string>
     <string name="cat_1">Personal</string>
     <string name="cat_2">Trabajo</string>
     <string name="cat_3">Escuela</string>
@@ -18,4 +18,33 @@
     <string name="nota_no_encontrada">Nota no encontrada</string>
     <string name="regresar">Regresar</string>
     <string name="error_login">Usuario o contraseña incorrectos</string>
+
+    <string name="iniciar_sesion">Iniciar Sesión</string>
+    <string name="usuario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+
+    <string name="titulo_nota">Titulo de la nota</string>
+    <string name="contenido_nota">Contenido</string>
+    <string name="categoria_nota">Categoría</string>
+
+    <string name="eliminar_nota">Eliminar nota</string>
+    <string name="eliminar_nota_pregunta">¿Desea eliminar la nota?</string>
+    <string name="eliminar_advertencia">Esta acción no se puede deshacer.</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="eliminar_cancelar">Cancelar</string>
+
+    <string name="buscar">Buscar</string>
+    <string name="buscar_nota">Buscar nota</string>
+
+    <string name="crear_nota">Crear nota</string>
+    <string name="guardar">Guardar</string>
+
+    <string name="ver_nota">Ver nota</string>
+    <string name="hola_usuario">¡Hola, Usuario!</string>
+    <string name="mi_nueva_nota">Mi nueva nota</string>
+    <string name="notas">Notas</string>
+
+    <string name="nav_home">Inicio</string>
+    <string name="nav_add">Añadir</string>
+    <string name="nav_search">Buscar</string>
 </resources>

@@ -47,11 +47,11 @@ fun MainScreen(navController: NavHostController) {
 
     //define el texto a mostrar en la topbar
     val customTitle = when (currentRoute) {
-        "home" -> "!Hola, Usuario¡"
+        "home" -> stringResource(R.string.hola_usuario)
         "select_note_type" -> ""
-        "create_note" -> "Mi nueva nota"
-        "search_note" -> "Buscar nota"
-        else -> "Notas"
+        "create_note" -> stringResource(R.string.mi_nueva_nota)
+        "search_note" -> stringResource(R.string.buscar_nota)
+        else -> stringResource(R.string.notas)
     }
 
     Scaffold(
@@ -88,8 +88,8 @@ fun BottomNavBar(navController: NavHostController) {
         contentColor = Color.White    // Íconos y texto blancos
     ){
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Home, contentDescription = "Home") },
-            label = { Text("Home") },
+            icon = { Icon(Icons.Default.Home, contentDescription = stringResource(R.string.nav_home)) },
+            label = { Text(stringResource(R.string.nav_home)) },
             selected = currentRoute == Screen.Home.route,
             onClick = {
                 navController.navigate(Screen.Home.route) {
@@ -106,8 +106,8 @@ fun BottomNavBar(navController: NavHostController) {
         )
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Add, contentDescription = "Add") },
-            label = { Text("Add") },
+            icon = { Icon(Icons.Default.Add, contentDescription = stringResource(R.string.nav_add)) },
+            label = { Text(stringResource(R.string.nav_add)) },
             selected = currentRoute == Screen.SelectNoteType.route,
             onClick = {
                 navController.navigate(Screen.SelectNoteType.route) {
@@ -124,8 +124,8 @@ fun BottomNavBar(navController: NavHostController) {
             )
         )
         NavigationBarItem(
-            icon = { Icon(Icons.Default.Search, contentDescription = "Search") },
-            label = { Text("Search") },
+            icon = { Icon(Icons.Default.Search, contentDescription = stringResource(R.string.nav_search)) },
+            label = { Text(stringResource(R.string.nav_search)) },
             selected = currentRoute == Screen.SearchNote.route,
             onClick = {
                 navController.navigate(Screen.SearchNote.route) {

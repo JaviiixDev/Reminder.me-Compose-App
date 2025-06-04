@@ -25,7 +25,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -74,10 +74,10 @@ fun HomeScreen(navController: NavHostController) {
     } else {
         //como obtenemos de stringRes las categorias, aqui se le asigna el nombre en string para poder comparar
         val categoryName = when (selectedCategory.value) {
-            R.string.cat_1 -> "Personal"
-            R.string.cat_2 -> "Trabajo"
-            R.string.cat_3 -> "Escuela"
-            R.string.cat_4 -> "Viajes"
+            R.string.cat_1 -> "cat_1"
+            R.string.cat_2 -> "cat_2"
+            R.string.cat_3 -> "cat_3"
+            R.string.cat_4 -> "cat_4"
             else -> null
         }
         //si se selecciona una categoria, entonces se filtra la lista solo por las notas que sean parte de esa categoria
@@ -207,7 +207,7 @@ fun NoteItem(
                     ) {
                         Text(
                             text = note.noteDate.format(
-                                DateTimeFormatter.ofPattern("d MMMM 'de' yyyy", Locale("es", "ES"))
+                                DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.getDefault())
                             ),
                             style = TextStyle(fontSize = 12.sp),
                             fontWeight = FontWeight.Light,
@@ -219,9 +219,16 @@ fun NoteItem(
                                 containerColor = Color(0xFFFF6F00)
                             )
                         ) {
+                            val categoryName = when (note.noteCategory) {
+                                "cat_1" -> stringResource(R.string.cat_1)
+                                "cat_2" -> stringResource(R.string.cat_2)
+                                "cat_3" -> stringResource(R.string.cat_3)
+                                "cat_4" -> stringResource(R.string.cat_4)
+                                else -> ""
+                            }
                             Text(
                                 modifier = Modifier.padding(top = 2.dp, bottom = 2.dp, start = 6.dp, end = 6.dp ),
-                                text = note.noteCategory,
+                                text = categoryName,
                                 style = TextStyle(fontSize = 11.sp),
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White
@@ -255,8 +262,8 @@ fun NoteItem(
                 ) {
                     IconButton(onClick = onClick) {
                         Icon(
-                            imageVector = Icons.Default.ArrowForward,
-                            contentDescription = "Ver nota",
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = stringResource(R.string.ver_nota),
                             tint = Color.White
                         )
                     }

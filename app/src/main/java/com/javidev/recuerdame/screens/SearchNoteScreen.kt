@@ -3,7 +3,6 @@ package com.javidev.recuerdame.screens
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,8 +27,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.javidev.recuerdame.R
 import com.javidev.recuerdame.data.notes
 import com.javidev.recuerdame.navigation.Screen
 
@@ -38,7 +39,7 @@ import com.javidev.recuerdame.navigation.Screen
 @Composable
 fun SearchNoteScreen(navController: NavHostController) {
     Scaffold(
-        topBar = { TopAppBar(title = { Text("Buscar nota") }) }
+        topBar = { TopAppBar(title = { Text(stringResource(R.string.buscar_nota)) }) }
     ) { innerPadding ->
         var searchQuery by remember { mutableStateOf("") }
         LazyColumn(
@@ -58,9 +59,9 @@ fun SearchNoteScreen(navController: NavHostController) {
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = { searchQuery = it },
-                    label = { Text("Buscar nota") },
+                    label = { Text(stringResource(R.string.buscar_nota)) },
                     leadingIcon = {
-                        Icon(imageVector = Icons.Default.Search, contentDescription = "Buscar")
+                        Icon(imageVector = Icons.Default.Search, contentDescription = stringResource(R.string.buscar))
                     },
                     singleLine = true,
                     colors = OutlinedTextFieldDefaults.colors(

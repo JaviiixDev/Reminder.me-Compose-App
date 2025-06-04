@@ -3,7 +3,6 @@ package com.javidev.recuerdame.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -87,7 +86,7 @@ fun LoginScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = inputUsername,
                 onValueChange = { inputUsername = it },
-                label = { Text("Usuario") },
+                label = { Text(stringResource(R.string.usuario)) },
                 modifier = Modifier
                     .fillMaxWidth(),
                 singleLine = true,
@@ -109,7 +108,7 @@ fun LoginScreen(navController: NavHostController) {
             OutlinedTextField(
                 value = inputPassword,
                 onValueChange = { inputPassword = it },
-                label = { Text("Contraseña") },
+                label = { Text(stringResource(R.string.contraseña)) },
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier
                     .fillMaxWidth(),
@@ -148,7 +147,7 @@ fun LoginScreen(navController: NavHostController) {
                     contentColor = Color.White          // Texto blanco
                 )
             ) {
-                Text("Iniciar sesión")
+                Text(stringResource(R.string.iniciar_sesion))
             }
             //si la contraseña o el usuario son incorrectos manda un error en forma de texto
             if (loginError) {
